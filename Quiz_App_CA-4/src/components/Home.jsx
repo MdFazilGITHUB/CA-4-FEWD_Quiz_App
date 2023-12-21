@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "./../assets/logo.png"
 
 function Home({ props }) {
   const { dark, setOpen } = props;
@@ -7,7 +8,7 @@ function Home({ props }) {
 
   return (
     <div className="home-page">
-      <img src="\src\assets\logo.png" alt="" />
+      <img src={logo} alt="" />
       <button
         className="home-page-button"
         onClick={openChange}
