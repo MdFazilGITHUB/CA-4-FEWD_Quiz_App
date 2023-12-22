@@ -1,22 +1,28 @@
 import { useState } from "react";
 import "./App.css";
+
 import Home from "./components/Home";
 import Quiz from "./components/Quiz";
-import lightThemeImg from "./assets/Light On.png";
-import darkThemeImg from "./assets/No Idea.png";
 import End from "./components/End";
 
+import lightThemeImg from "./assets/Light On.png";
+import darkThemeImg from "./assets/No Idea.png";
+
+// Main functional component App
 function App() {
+  // State variables using useState hook
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(true);
   const [correctAns, setCorrectAns] = useState(0);
-  const [renderEnd,setRenderEnd] = useState(false)
-  const [retake,setRetake] = useState(false)
+  const [renderEnd, setRenderEnd] = useState(false);
+  const [retake, setRetake] = useState(false);
 
+  // Function to toggle between dark and light themes
   const changeTheme = () => {
     setDark(!dark);
   };
 
+  // Function to dynamically change the image source based on the theme
   const srcChange = () => {
     return dark ? lightThemeImg : darkThemeImg;
   };
@@ -25,24 +31,40 @@ function App() {
     <div
       className="body"
       style={{
-        background: `${
-          dark
+        background: `${dark
             ? "linear-gradient(180deg, #000 0%, #3a3a3a 50%, #000 100%)"
             : "linear-gradient(180deg, #FFF 0%, #1F1F1F 50%, #FFF 100%)"
-        }`,
+          }`,
       }}
     >
+      {/* Theme toggle button */}
       <button
         className="themeButton"
         style={{
-          backgroundColor: dark ? "white" : "black"
+          // Dynamic background color based on the theme
+          backgroundColor: dark ? "white" : "black",
         }}
         onClick={changeTheme}
       >
+        {/* Dynamic image source based on the theme */}
         <img src={srcChange()} alt="" />
       </button>
-      {retake?<Quiz props={{ dark, setRenderEnd,correctAns,setCorrectAns }}/>:(renderEnd ? <End props={{dark,correctAns,setRetake,retake}}/> : (open ? <Quiz props={{ dark, setRenderEnd,correctAns,setCorrectAns }} /> : <Home props={{ dark, setOpen }} />))}
 
+      {/* Conditional rendering based on the state values */}
+      {retake ? (
+        // If retake is true, render Quiz component
+        <Quiz props={{ dark, setRenderEnd, correctAns, setCorrectAns }} />
+      ) : renderEnd ? (
+        // If renderEnd is true, render End component
+        <End props={{ dark, correctAns, setRetake, retake }} />
+      ) : // If neither retake nor renderEnd is true, render Home or Quiz component based on the value of 'open'
+        open ? (
+          // If open is true, render Quiz component
+          <Quiz props={{ dark, setRenderEnd, correctAns, setCorrectAns }} />
+        ) : (
+          // If open is false, render Home component
+          <Home props={{ dark, setOpen }} />
+        )}
     </div>
   );
 }

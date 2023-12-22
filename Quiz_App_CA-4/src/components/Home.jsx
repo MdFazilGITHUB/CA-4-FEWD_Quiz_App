@@ -1,21 +1,25 @@
 import React from "react";
-import logo from "./../assets/logo.png"
+
+import logo from "./../assets/logo.png";
 
 function Home({ props }) {
+  // Destructuring props to extract values
   const { dark, setOpen } = props;
 
-  const openChange = () => setOpen(true)
+  // Function to set 'open' state to true
+  const openChange = () => setOpen(true);
 
   return (
     <div className="home-page">
       <img src={logo} alt="" />
+
       <button
         className="home-page-button"
         onClick={openChange}
         style={{
-          boxShadow: `${
-            dark ? "0px 0px 50px 0px #fff" : "0px 0px 50px 0px #000000"
-          }`,
+          // Dynamic box shadow based on the theme
+          boxShadow: `${dark ? "0px 0px 50px 0px #fff" : "0px 0px 50px 0px #000000"
+            }`,
         }}
       >
         Take Quiz
